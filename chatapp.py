@@ -59,7 +59,7 @@ def get_conversational_chain():
 def user_input(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     
-    new_db = FAISS.load_local("faiss_index", embeddings)
+    new_db = FAISS.load_local("faiss_index", embeddings,allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
 
     chain = get_conversational_chain()
@@ -77,7 +77,7 @@ def user_input(user_question):
 
 def main():
     st.set_page_config("Multi PDF Chatbot", page_icon = ":scroll:")
-    st.header("Multi-PDF's 📚 - Chat Agent 🤖 ")
+    st.header("Multi-PDF's - Chat Agent ")
 
     user_question = st.text_input("Ask a Question from the PDF Files uploaded .. ✍️📝")
 
@@ -85,9 +85,6 @@ def main():
         user_input(user_question)
 
     with st.sidebar:
-
-        st.image("img/Robot.jpg")
-        st.write("---")
         
         st.title("📁 PDF File's Section")
         pdf_docs = st.file_uploader("Upload your PDF Files & \n Click on the Submit & Process Button ", accept_multiple_files=True)
@@ -99,14 +96,13 @@ def main():
                 st.success("Done")
         
         st.write("---")
-        st.image("img/gkj.jpg")
-        st.write("AI App created by @ Gurpreet Kaur")  # add this line to display the image
+        st.write("AI App created by @ Ruchit Sharma")
 
 
     st.markdown(
         """
         <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0E1117; padding: 15px; text-align: center;">
-            © <a href="https://github.com/gurpreetkaurjethra" target="_blank">Gurpreet Kaur Jethra</a> | Made with ❤️
+            © <a href="https://www.linkedin.com/in/ruchit-sharma-2a5049223/" target="_blank">Ruchit Sharma</a> | Made with ❤️
         </div>
         """,
         unsafe_allow_html=True
